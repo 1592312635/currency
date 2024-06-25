@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minyan.dao.CurrencyAccountMapper">
+
+    <resultMap type="com.minyan.po.CurrencyAccountPO" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="currency" column="currency"/>
+        <result property="currencyType" column="currency_type"/>
+        <result property="userId" column="user_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="Base_Fragment_SQL">
+        id, currency, currency_type, user_id, create_time, update_time
+    </sql>
+
+    <select id="selectListSelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Fragment_SQL"/>
+        from currency_account
+        <where>
+            <if test="id != null">
+                and id = #{id,jdbcType=BIGINT}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId,jdbcType=VARCHAR}
+            </if>
+            <if test="currencyType != null">
+                and currencyType = #{currencyType,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertSelective" parameterType="com.minyan.po.CurrencyAccountPO">
+        insert into currency_account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="currencyType != null">
+                currencyType,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="currencyType != null">
+                #{currencyType,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByUserIdAndCurrencyType" parameterType="map">
+        update currency_account
+        <trim prefix="SET" suffixOverrides=",">
+            currency = currency + #{addCurrency,jdbcType=DECIMAL}
+        </trim>
+        <where>
+            user_id = #{userId,jdbcType=VARCHAR}
+            and currencyType = #{currencyType,jdbcType=INTEGER}
+        </where>
+    </update>
+</mapper>

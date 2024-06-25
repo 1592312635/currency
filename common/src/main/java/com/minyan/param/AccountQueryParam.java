@@ -1,5 +1,7 @@
 package com.minyan.param;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -9,5 +11,9 @@ import lombok.Data;
  */
 @Data
 public class AccountQueryParam {
-    private Integer currencyType;
+  @NotBlank(message = "userId不能为空")
+  private String userId;
+
+  @NotNull(message = "代币类型不能为空")
+  private Integer currencyType;
 }
