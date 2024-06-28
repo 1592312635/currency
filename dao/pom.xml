@@ -30,11 +30,6 @@
             <version>1.1.1</version>
         </dependency>
         <dependency>
-            <groupId>org.mybatis.generator</groupId>
-            <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.28</version>
@@ -43,6 +38,17 @@
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper</artifactId>
             <version>4.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-generator</artifactId>
+            <version>1.1.5</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.4.2</version>
         </dependency>
     </dependencies>
     <build>
@@ -60,22 +66,19 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- 配置文件存放路径 -->
-                    <configurationFile>
-                        /IntelliJ IDEA Community Edition 2023.2.2/workspace/currency/dao/src/main/resources/generator/generatorConfig.xml
-                    </configurationFile>
-                    <overwrite>true</overwrite>
+                    <configurationFile>src/main/resources/generator/generatorConfig.xml</configurationFile>
                     <verbose>true</verbose>
+                    <overwrite>true</overwrite>
                 </configuration>
                 <dependencies>
-                    <!-- mybatis -->
                     <dependency>
-                        <groupId>org.mybatis.generator</groupId>
-                        <artifactId>mybatis-generator-core</artifactId>
-                        <version>1.4.2</version>
+                        <groupId>tk.mybatis</groupId>
+                        <artifactId>mapper-generator</artifactId>
+                        <version>1.1.5</version>
                     </dependency>
                 </dependencies>
             </plugin>
         </plugins>
     </build>
+
 </project>

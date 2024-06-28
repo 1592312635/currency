@@ -1,7 +1,6 @@
 package com.minyan.currencycapi.service;
 
 import com.minyan.param.AccountQueryParam;
-import com.minyan.vo.ApiResult;
 import com.minyan.vo.CurrencyAccountVO;
 
 /**

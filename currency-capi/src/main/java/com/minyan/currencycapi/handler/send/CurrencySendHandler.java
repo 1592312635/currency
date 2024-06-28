@@ -5,4 +5,8 @@ package com.minyan.currencycapi.handler.send;
  * @author minyan.he
  * @date 2024/6/25 13:45
  */
-public interface CurrencySendHandler {}
+public interface CurrencySendHandler {
+    boolean handle();
+
+    void fallBack();
+}

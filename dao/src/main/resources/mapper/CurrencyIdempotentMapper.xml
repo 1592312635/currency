@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minyan.dao.CurrencyIdempotentMapper">
+
+    <resultMap type="com.minyan.po.CurrencyIdempotentPO" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="businessId" column="business_id"/>
+        <result property="behaviorCode" column="behavior_code"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <sql id="Base_Fragment_SQL">
+        id, busienss_id, behavior_code, create_time, update_time
+    </sql>
+
+    <select id="countByBusinessId" resultType="int">
+        select
+        count(1)
+        from currency_idempotent
+        <where>
+            busiess_id = #{businessId,jdbcType=VARCHAR}
+            <if test="behaviorCode != null">
+                and behavior_code = #{behaviorCode,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertSelective" parameterType="com.minyan.po.CurrencyAccountPO">
+        insert into currency_idempotent
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="businessId != null">
+                business_id,
+            </if>
+            <if test="behaviorCode != null">
+                behavior_code,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="businessId != null">
+                #{businessId,jdbcType=VARCHAR},
+            </if>
+            <if test="behaviorCode != null">
+                #{behaviorCode,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>

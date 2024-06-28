@@ -2,7 +2,6 @@ package com.minyan.po;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -11,7 +10,6 @@ import lombok.Data;
  * @date 2024/6/25 11:35
  */
 @Data
-@AllArgsConstructor
 public class CurrencyAccountPO {
   private Long id;
   private String userId;

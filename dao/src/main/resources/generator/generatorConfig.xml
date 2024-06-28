@@ -25,8 +25,8 @@
 
         <!-- 配置 tk.mybatis 插件 -->
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.glsx.plat.mybatis.mapper.CommonBaseMapper"/>
-<!--            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>-->
+<!--            <property name="mappers" value="com.glsx.plat.mybatis.mapper.CommonBaseMapper"/>-->
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
         </plugin>
 
         <!--配置生成注释信息，最多配置一个 -->
