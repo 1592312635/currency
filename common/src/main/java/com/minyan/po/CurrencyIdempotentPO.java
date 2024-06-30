@@ -15,4 +15,5 @@ public class CurrencyIdempotentPO {
   private String behaviorCode;
   private Date createTime;
   private Date updateTime;
+  private Integer delTag;
 }

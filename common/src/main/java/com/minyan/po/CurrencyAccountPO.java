@@ -17,6 +17,7 @@ public class CurrencyAccountPO {
   private Integer currencyType;
   private Date createTime;
   private Date updateTime;
+  private Integer delTag;
 
   public CurrencyAccountPO() {}
 

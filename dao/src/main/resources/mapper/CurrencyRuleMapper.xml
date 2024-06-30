@@ -2,31 +2,36 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.minyan.dao.CurrencyIdempotentMapper">
+<mapper namespace="com.minyan.dao.CurrencyRuleMapper">
 
-    <resultMap type="com.minyan.po.CurrencyIdempotentPO" id="BaseResultMap">
+    <resultMap type="com.minyan.po.CurrencyRulePO" id="BaseResultMap">
         <result property="id" column="id"/>
-        <result property="businessId" column="business_id"/>
-        <result property="behaviorCode" column="behavior_code"/>
+        <result property="currencyType" column="currency_type"/>
+        <result property="currencyTypeDesc" column="currency_type_desc"/>
+        <result property="effectiveType" column="effective_type"/>
+        <result property="effectiveCycle" column="effective_cycle"/>
+        <result property="effectiveSpan" column="effective_span"/>
+        <result property="expireCycle" column="expire_cycle"/>
+        <result property="expireSpan" column="expire_span"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
         <result property="delTag" column="del_tag"/>
     </resultMap>
 
     <sql id="Base_Fragment_SQL">
-        id, business_id, behavior_code, create_time, update_time, del_tag
+        id, currency_type, currency_type_desc, effective_type, effective_cycle, effective_span, expire_cycle,
+        expire_span, start_time, end_time, create_time, update_time, del_tag
     </sql>
 
-    <select id="countByBusinessId" resultType="int">
+    <select id="selectByCurrencyType" resultMap="BaseResultMap">
         select
-        count(1)
+        <include refid="Base_Fragment_SQL"/>
         from currency_idempotent
         <where>
             del_tag = 0
-            and business_id = #{businessId,jdbcType=VARCHAR}
-            <if test="behaviorCode != null">
-                and behavior_code = #{behaviorCode,jdbcType=VARCHAR}
-            </if>
+            and currency_type = #{currencyType,jdbcType=INTEGER}
         </where>
     </select>
 

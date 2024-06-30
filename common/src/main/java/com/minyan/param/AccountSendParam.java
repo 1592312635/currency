@@ -21,4 +21,5 @@ public class AccountSendParam {
   private Integer currencyType;
   @NotBlank(message = "流水号不能为空")
   private String businessId;
+  private String behaviorCode;
 }

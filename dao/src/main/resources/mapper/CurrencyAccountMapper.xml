@@ -11,10 +11,11 @@
         <result property="userId" column="user_id"/>
         <result property="createTime" column="create_time"/>
         <result property="updateTime" column="update_time"/>
+        <result property="delTag" column="del_tag"/>
     </resultMap>
 
     <sql id="Base_Fragment_SQL">
-        id, currency, currency_type, user_id, create_time, update_time
+        id, currency, currency_type, user_id, create_time, update_time, del_tag
     </sql>
 
     <select id="selectListSelective" parameterType="map" resultMap="BaseResultMap">
@@ -22,6 +23,7 @@
         <include refid="Base_Fragment_SQL"/>
         from currency_account
         <where>
+            del_tag = 0
             <if test="id != null">
                 and id = #{id,jdbcType=BIGINT}
             </if>
