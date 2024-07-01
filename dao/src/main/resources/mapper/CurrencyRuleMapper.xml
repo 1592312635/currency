@@ -28,7 +28,7 @@
     <select id="selectByCurrencyType" resultMap="BaseResultMap">
         select
         <include refid="Base_Fragment_SQL"/>
-        from currency_idempotent
+        from currency_rule
         <where>
             del_tag = 0
             and currency_type = #{currencyType,jdbcType=INTEGER}
@@ -36,7 +36,7 @@
     </select>
 
     <insert id="insertSelective" parameterType="com.minyan.po.CurrencyAccountPO">
-        insert into currency_idempotent
+        insert into currency_rule
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="businessId != null">
                 business_id,

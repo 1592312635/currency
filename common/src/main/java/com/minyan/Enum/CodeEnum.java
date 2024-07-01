@@ -13,6 +13,9 @@ import lombok.Getter;
 public enum CodeEnum {
     SUCCESS("200", "成功"),
     FAIL("9999", "失败"),
+
+    IDEMPOTENT_EXIST("100000", "幂等性校验失败"),
+
     ;
     private String code;
     private String message;

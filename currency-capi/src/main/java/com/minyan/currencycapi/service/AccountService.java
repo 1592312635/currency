@@ -1,6 +1,7 @@
 package com.minyan.currencycapi.service;
 
 import com.minyan.param.AccountQueryParam;
+import com.minyan.param.AccountSendParam;
 import com.minyan.vo.CurrencyAccountVO;
 
 /**
@@ -10,4 +11,5 @@ import com.minyan.vo.CurrencyAccountVO;
  */
 public interface AccountService {
     CurrencyAccountVO getAccount(AccountQueryParam param);
+    boolean send(AccountSendParam param);
 }

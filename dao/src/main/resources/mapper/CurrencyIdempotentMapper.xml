@@ -24,9 +24,6 @@
         <where>
             del_tag = 0
             and business_id = #{businessId,jdbcType=VARCHAR}
-            <if test="behaviorCode != null">
-                and behavior_code = #{behaviorCode,jdbcType=VARCHAR}
-            </if>
         </where>
     </select>
 

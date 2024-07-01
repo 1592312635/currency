@@ -1,10 +1,13 @@
 package com.minyan.currencycapi.handler.send;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.minyan.Enum.CodeEnum;
 import com.minyan.dao.CurrencyIdempotentMapper;
+import com.minyan.exception.CurrencyException;
 import com.minyan.param.AccountSendParam;
 import com.minyan.po.CurrencyIdempotentPO;
 import com.minyan.vo.send.SendContext;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,7 @@ public class CurrencySendIdempotentHandler extends CurrencySendAbstractHandler {
   private static final Logger logger = LoggerFactory.getLogger(CurrencySendIdempotentHandler.class);
   @Autowired private CurrencyIdempotentMapper currencyIdempotentMapper;
 
+  @SneakyThrows(CurrencyException.class)
   @Override
   public boolean handle(SendContext sendContext) {
     AccountSendParam param = sendContext.getParam();
@@ -32,10 +36,10 @@ public class CurrencySendIdempotentHandler extends CurrencySendAbstractHandler {
         count);
     if (count > 0) {
       logger.info(
-          "[CurrencySendIdempotentHandler][handle]代币发放幂等性校验不通过，已存在挡墙流水号信息，请求参数：{}，返回结果：{}",
+          "[CurrencySendIdempotentHandler][handle]代币发放幂等性校验不通过，已存在当前流水号信息，请求参数：{}，返回结果：{}",
           JSONObject.toJSONString(param),
           count);
-      return false;
+      throw new CurrencyException(CodeEnum.IDEMPOTENT_EXIST);
     }
     // 构建新的流水幂等信息数据
     CurrencyIdempotentPO currencyIdempotentPO = buildCurrencyIdempotentPO(param);
