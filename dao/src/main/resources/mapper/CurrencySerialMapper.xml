@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.minyan.dao.CurrencySerialMapper">
+
+    <resultMap type="com.minyan.po.CurrencySerialPO" id="BaseResultMap">
+        <result property="id" column="id"/>
+        <result property="businessId" column="business_id"/>
+        <result property="rollbackBusinessId" column="rollback_business_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="behaviorCode" column="behavior_code"/>
+        <result property="behaviorDesc" column="behavior_desc"/>
+        <result property="currencyType" column="currency_type"/>
+        <result property="handleType" column="handle_type"/>
+        <result property="amount" column="amount"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="delTag" column="del_tag"/>
+    </resultMap>
+
+    <sql id="Base_Fragment_SQL">
+        id, business_id, rollback_business_id, user_id, behavior_code, behavior_desc, currency_type, handle_type, create_time, update_time, del_tag
+    </sql>
+
+    <insert id="insertSelective" parameterType="com.minyan.po.CurrencyAccountPO">
+        insert into currency_serial
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="businessId != null">
+                business_id,
+            </if>
+            <if test="rollbackBusinessId != null">
+                rollback_business_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="behaviorCode != null">
+                behavior_code,
+            </if>
+            <if test="behaviorDesc != null">
+                behavior_desc,
+            </if>
+            <if test="currencyType != null">
+                currency_type,
+            </if>
+            <if test="handleType != null">
+                handle_type,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="businessId != null">
+                #{businessId,jdbcType=VARCHAR},
+            </if>
+            <if test="rollbackBusinessId != null">
+                #{rollbackBusinessId,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="behaviorCode != null">
+                #{behaviorCode,jdbcType=VARCHAR},
+            </if>
+            <if test="behaviorDesc != null">
+                #{behaviorDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="currencyType != null">
+                #{currencyType,jdbcType=INTEGER},
+            </if>
+            <if test="handleType != null">
+                #{handleType,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                #{amount,jdbcType=DECIMAL},
+            </if>
+        </trim>
+    </insert>
+</mapper>

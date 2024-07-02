@@ -6,7 +6,7 @@ import com.google.common.collect.Maps;
 import com.minyan.currencycapi.handler.send.CurrencySendHandler;
 import com.minyan.currencycapi.service.AccountService;
 import com.minyan.dao.CurrencyAccountMapper;
-import com.minyan.exception.CurrencyException;
+import com.minyan.exception.CustomException;
 import com.minyan.param.AccountQueryParam;
 import com.minyan.param.AccountSendParam;
 import com.minyan.po.CurrencyAccountPO;
@@ -15,7 +15,6 @@ import com.minyan.vo.send.SendContext;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +50,7 @@ public class AccountServiceImpl implements AccountService {
     return new CurrencyAccountVO(BigDecimal.ZERO, param.getCurrencyType());
   }
 
-  @SneakyThrows(CurrencyException.class)
+  @SneakyThrows(CustomException.class)
   @Transactional(rollbackFor = Exception.class)
   @Override
   public boolean send(AccountSendParam param) {
@@ -59,6 +58,7 @@ public class AccountServiceImpl implements AccountService {
     sendContext.setParam(param);
     List<CurrencySendHandler> fallBackHandlers = Lists.newArrayList();
     for (CurrencySendHandler currencySendHandler : currencySendHandlers) {
+      fallBackHandlers.add(currencySendHandler);
       if (!currencySendHandler.handle(sendContext)) {
         // 失败执行回退操作
         for (CurrencySendHandler fallBackHandler : fallBackHandlers) {
@@ -73,7 +73,6 @@ public class AccountServiceImpl implements AccountService {
         }
         return false;
       }
-      fallBackHandlers.add(currencySendHandler);
     }
     return true;
   }

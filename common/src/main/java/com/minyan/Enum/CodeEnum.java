@@ -15,6 +15,7 @@ public enum CodeEnum {
     FAIL("9999", "失败"),
 
     IDEMPOTENT_EXIST("100000", "幂等性校验失败"),
+    CURRENCY_RULE_NOT_EXIST("100001", "币种规则不存在"),
 
     ;
     private String code;

@@ -1,10 +1,13 @@
 package com.minyan.currencycapi.handler.send;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.minyan.Enum.CodeEnum;
 import com.minyan.dao.CurrencyRuleMapper;
+import com.minyan.exception.CustomException;
 import com.minyan.param.AccountSendParam;
 import com.minyan.po.CurrencyRulePO;
 import com.minyan.vo.send.SendContext;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,7 @@ public class CurrencySendRuleHandler extends CurrencySendAbstractHandler {
   private static final Logger logger = LoggerFactory.getLogger(CurrencySendRuleHandler.class);
   @Autowired private CurrencyRuleMapper currencyRuleMapper;
 
+  @SneakyThrows(CustomException.class)
   @Override
   public boolean handle(SendContext sendContext) {
     AccountSendParam param = sendContext.getParam();
@@ -32,7 +36,7 @@ public class CurrencySendRuleHandler extends CurrencySendAbstractHandler {
       logger.info(
           "[CurrencySendRuleHandler][handle]代币发放时未查询到指定代币类型规则，请求参数：{}",
           JSONObject.toJSONString(param));
-      return false;
+      throw new CustomException(CodeEnum.CURRENCY_RULE_NOT_EXIST);
     }
     return true;
   }

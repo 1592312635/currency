@@ -22,4 +22,5 @@ public class AccountSendParam {
   @NotBlank(message = "流水号不能为空")
   private String businessId;
   private String behaviorCode;
+  private String behaviorDesc;
 }

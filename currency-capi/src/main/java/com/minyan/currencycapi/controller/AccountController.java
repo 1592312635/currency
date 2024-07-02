@@ -38,12 +38,7 @@ public class AccountController {
 
   @RequestMapping("/send")
   public ApiResult<Boolean> send(@RequestBody @Validated AccountSendParam param) {
-    try {
-      boolean send = accountService.send(param);
-      return ApiResult.build(send ? CodeEnum.SUCCESS : CodeEnum.FAIL);
-    } catch (Exception e) {
-      logger.error("[AccountController][send]代币发送时异常", e);
-      return ApiResult.build(CodeEnum.FAIL.getCode(), e.getMessage());
-    }
+    boolean send = accountService.send(param);
+    return ApiResult.build(send ? CodeEnum.SUCCESS : CodeEnum.FAIL);
   }
 }

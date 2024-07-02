@@ -12,20 +12,20 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class CurrencyException extends Exception {
+public class CustomException extends Exception {
 
   private String code;
   private String message;
 
-  public CurrencyException(String message) {
+  public CustomException(String message) {
     super(message);
   }
 
-  public CurrencyException(String message, Throwable cause) {
+  public CustomException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public CurrencyException(CodeEnum codeEnum) {
+  public CustomException(CodeEnum codeEnum) {
     this.code = codeEnum.getCode();
     this.message = codeEnum.getMessage();
   }
