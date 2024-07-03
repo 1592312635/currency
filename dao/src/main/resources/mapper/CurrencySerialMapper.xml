@@ -20,7 +20,8 @@
     </resultMap>
 
     <sql id="Base_Fragment_SQL">
-        id, business_id, rollback_business_id, user_id, behavior_code, behavior_desc, currency_type, handle_type, create_time, update_time, del_tag
+        id, business_id, rollback_business_id, user_id, behavior_code, behavior_desc, currency_type, handle_type,
+        amount, create_time, update_time, del_tag
     </sql>
 
     <insert id="insertSelective" parameterType="com.minyan.po.CurrencyAccountPO">
@@ -78,4 +79,22 @@
             </if>
         </trim>
     </insert>
+
+    <select id="querySerial" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Fragment_SQL"/>
+        from currency_serial
+        <where>
+            del_tag = 0
+            and user_id = #{userId,jdbcType=VARCHAR}
+            and currency_type = #{currencyType,jdbcType=INTEGER}
+            <if test="handleType != null">
+                and handle_type= #{handleType,jdbcType=INTEGER}
+            </if>
+        </where>
+        order by create_time desc
+        <if test="pageNum != null and pageSize != null">
+            limit #{pageNum,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+        </if>
+    </select>
 </mapper>
