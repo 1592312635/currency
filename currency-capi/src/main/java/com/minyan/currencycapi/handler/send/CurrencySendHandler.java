@@ -9,7 +9,7 @@ import com.minyan.vo.send.SendContext;
  * @date 2024/6/25 13:45
  */
 public interface CurrencySendHandler {
-  boolean handle(SendContext sendContext) throws CustomException;
+  boolean handle(SendContext sendContext);
 
   void fallBack(SendContext sendContext);
 }

@@ -2,12 +2,15 @@ package com.minyan.currencycapi.handler.send;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.google.common.collect.Maps;
+import com.minyan.Enum.CodeEnum;
 import com.minyan.dao.CurrencyAccountMapper;
+import com.minyan.exception.CustomException;
 import com.minyan.param.AccountSendParam;
 import com.minyan.po.CurrencyAccountPO;
 import com.minyan.vo.send.SendContext;
 import java.util.List;
 import java.util.Map;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +24,13 @@ import org.springframework.util.CollectionUtils;
  * @date 2024/6/25 13:45
  */
 @Service
-@Order(50)
+@Order(30)
 public class CurrencySendAccountHandler extends CurrencySendAbstractHandler {
   private static final Logger logger = LoggerFactory.getLogger(CurrencySendAccountHandler.class);
 
   @Autowired private CurrencyAccountMapper currencyAccountMapper;
 
+  @SneakyThrows(CustomException.class)
   @Override
   public boolean handle(SendContext sendContext) {
     AccountSendParam param = sendContext.getParam();
@@ -49,7 +53,10 @@ public class CurrencySendAccountHandler extends CurrencySendAbstractHandler {
         JSONObject.toJSONString(param),
         JSONObject.toJSONString(currencyAccountPOS),
         count);
-    return count > 0;
+    if (count <= 0) {
+      throw new CustomException(CodeEnum.ACCOUNT_UPDATE_FAIL);
+    }
+    return true;
   }
 
   /**

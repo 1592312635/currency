@@ -50,7 +50,6 @@ public class AccountServiceImpl implements AccountService {
     return new CurrencyAccountVO(BigDecimal.ZERO, param.getCurrencyType());
   }
 
-  @SneakyThrows(CustomException.class)
   @Transactional(rollbackFor = Exception.class)
   @Override
   public boolean send(AccountSendParam param) {

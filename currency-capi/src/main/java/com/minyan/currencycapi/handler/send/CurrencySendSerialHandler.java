@@ -1,10 +1,14 @@
 package com.minyan.currencycapi.handler.send;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.minyan.Enum.CodeEnum;
 import com.minyan.Enum.HandleTypeEnum;
 import com.minyan.dao.CurrencySerialMapper;
+import com.minyan.exception.CustomException;
 import com.minyan.param.AccountSendParam;
 import com.minyan.po.CurrencySerialPO;
 import com.minyan.vo.send.SendContext;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +21,26 @@ import org.springframework.stereotype.Service;
  * @date 2024/7/2 11:10
  */
 @Service
-@Order(60)
+@Order(40)
 public class CurrencySendSerialHandler extends CurrencySendAbstractHandler {
   private static final Logger logger = LoggerFactory.getLogger(CurrencySendSerialHandler.class);
 
   @Autowired private CurrencySerialMapper currencySerialMapper;
 
+  @SneakyThrows(CustomException.class)
   @Override
   public boolean handle(SendContext sendContext) {
     AccountSendParam param = sendContext.getParam();
     CurrencySerialPO currencySerialPO = buildCurrencySerialPO(param);
     int result = currencySerialMapper.insertSelective(currencySerialPO);
-    return result > 0;
+    logger.info(
+        "[CurrencySendSerialHandler][handle]生成流水结束，请求参数：{}，返回结果：{}",
+        JSONObject.toJSONString(currencySerialPO),
+        result);
+    if (result <= 0) {
+      throw new CustomException(CodeEnum.SERIAL_INSERT_FAIL);
+    }
+    return true;
   }
 
   /**
