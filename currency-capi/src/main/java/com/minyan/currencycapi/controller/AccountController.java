@@ -3,6 +3,7 @@ package com.minyan.currencycapi.controller;
 import com.alibaba.fastjson2.JSONObject;
 import com.minyan.Enum.CodeEnum;
 import com.minyan.currencycapi.service.AccountService;
+import com.minyan.param.AccountDeductParam;
 import com.minyan.param.AccountQueryParam;
 import com.minyan.param.AccountSendParam;
 import com.minyan.vo.ApiResult;
@@ -42,8 +43,8 @@ public class AccountController {
     return ApiResult.build(send ? CodeEnum.SUCCESS : CodeEnum.FAIL);
   }
   @RequestMapping("/deduct")
-  public ApiResult<Boolean> deduct(@RequestBody @Validated AccountSendParam param) {
-    boolean send = accountService.send(param);
+  public ApiResult<Boolean> deduct(@RequestBody @Validated AccountDeductParam param) {
+    boolean send = accountService.deduct(param);
     return ApiResult.build(send ? CodeEnum.SUCCESS : CodeEnum.FAIL);
   }
 }
