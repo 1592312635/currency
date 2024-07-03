@@ -1,12 +1,11 @@
 package com.minyan.dao;
 
 import com.minyan.po.CurrencyAccountPO;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @decription
@@ -19,5 +18,9 @@ public interface CurrencyAccountMapper {
 
   int insertSelective(CurrencyAccountPO record);
 
-  int updateByUserIdAndCurrencyType(@Param("userId")String userId,@Param("currencyType") Integer currencyType,@Param("addCurrency") BigDecimal currency);
+  int updateByUserIdAndCurrencyType(
+      @Param("userId") String userId,
+      @Param("currencyType") Integer currencyType,
+      @Param("addCurrency") BigDecimal addCurrency,
+      @Param("deductCurrency") BigDecimal deductCurrency);
 }

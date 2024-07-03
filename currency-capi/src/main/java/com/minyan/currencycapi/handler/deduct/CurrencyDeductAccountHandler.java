@@ -1,13 +1,13 @@
-package com.minyan.currencycapi.handler.send;
+package com.minyan.currencycapi.handler.deduct;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.google.common.collect.Maps;
 import com.minyan.Enum.CodeEnum;
 import com.minyan.dao.CurrencyAccountMapper;
 import com.minyan.exception.CustomException;
-import com.minyan.param.AccountSendParam;
+import com.minyan.param.AccountDeductParam;
 import com.minyan.po.CurrencyAccountPO;
-import com.minyan.vo.send.SendContext;
+import com.minyan.vo.deduct.DeductContext;
 import java.util.List;
 import java.util.Map;
 import lombok.SneakyThrows;
@@ -25,31 +25,34 @@ import org.springframework.util.CollectionUtils;
  */
 @Service
 @Order(30)
-public class CurrencySendAccountHandler extends CurrencySendAbstractHandler {
-  private static final Logger logger = LoggerFactory.getLogger(CurrencySendAccountHandler.class);
+public class CurrencyDeductAccountHandler extends CurrencyDeductAbstractHandler {
+  private static final Logger logger = LoggerFactory.getLogger(CurrencyDeductAccountHandler.class);
 
   @Autowired private CurrencyAccountMapper currencyAccountMapper;
 
   @SneakyThrows(CustomException.class)
   @Override
-  public boolean handle(SendContext sendContext) {
-    AccountSendParam param = sendContext.getParam();
-    // 查询是否存在代币账户
+  public boolean handle(DeductContext deductContext) {
+    AccountDeductParam param = deductContext.getParam();
+    // 查询代币账户
     Map<String, Object> queryMap = buildQueryCurrencyAccountPO(param);
     List<CurrencyAccountPO> currencyAccountPOS =
         currencyAccountMapper.selectListSelective(queryMap);
 
-    int count = 0;
+    // 账户存在校验
     if (CollectionUtils.isEmpty(currencyAccountPOS)) {
-      CurrencyAccountPO currencyAccountPO = buildInsertCurrencyAccountPO(param);
-      count = currencyAccountMapper.insertSelective(currencyAccountPO);
-    } else {
-      count =
-          currencyAccountMapper.updateByUserIdAndCurrencyType(
-              param.getUserId(), param.getCurrencyType(), param.getAddCurrency(),null);
+      throw new CustomException(CodeEnum.ACCOUNT_NOT_EXIST);
     }
+    // 账户余额校验
+    if (currencyAccountPOS.get(0).getCurrency().compareTo(param.getDeductCurrency()) < 0) {
+      throw new CustomException(CodeEnum.ACCOUNT_NOT_ENOUGH);
+    }
+
+    int count =
+        currencyAccountMapper.updateByUserIdAndCurrencyType(
+            param.getUserId(), param.getCurrencyType(), null, param.getDeductCurrency());
     logger.info(
-        "[CurrencySendAccountHandler][handle]代币发放结束，请求参数：{}，账户信息：{}，返回结果：{}",
+        "[CurrencyDeductAccountHandler][handle]代币账户扣减结束，请求参数：{}，账户信息：{}，返回结果：{}",
         JSONObject.toJSONString(param),
         JSONObject.toJSONString(currencyAccountPOS),
         count);
@@ -60,26 +63,12 @@ public class CurrencySendAccountHandler extends CurrencySendAbstractHandler {
   }
 
   /**
-   * 新建代币账户请求参数
-   *
-   * @param param
-   * @return
-   */
-  CurrencyAccountPO buildInsertCurrencyAccountPO(AccountSendParam param) {
-    CurrencyAccountPO currencyAccountPO = new CurrencyAccountPO();
-    currencyAccountPO.setUserId(param.getUserId());
-    currencyAccountPO.setCurrency(param.getAddCurrency());
-    currencyAccountPO.setCurrencyType(param.getCurrencyType());
-    return currencyAccountPO;
-  }
-
-  /**
    * 查询代币账户信息请求参数
    *
    * @param param
    * @return
    */
-  Map<String, Object> buildQueryCurrencyAccountPO(AccountSendParam param) {
+  Map<String, Object> buildQueryCurrencyAccountPO(AccountDeductParam param) {
     Map<String, Object> map = Maps.newHashMap();
     map.put("userId", param.getUserId());
     map.put("currencyType", param.getCurrencyType());

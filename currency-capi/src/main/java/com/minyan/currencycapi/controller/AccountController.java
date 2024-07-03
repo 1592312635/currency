@@ -41,4 +41,9 @@ public class AccountController {
     boolean send = accountService.send(param);
     return ApiResult.build(send ? CodeEnum.SUCCESS : CodeEnum.FAIL);
   }
+  @RequestMapping("/deduct")
+  public ApiResult<Boolean> deduct(@RequestBody @Validated AccountSendParam param) {
+    boolean send = accountService.send(param);
+    return ApiResult.build(send ? CodeEnum.SUCCESS : CodeEnum.FAIL);
+  }
 }

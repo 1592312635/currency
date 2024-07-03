@@ -59,7 +59,12 @@
     <update id="updateByUserIdAndCurrencyType" parameterType="map">
         update currency_account
         <trim prefix="SET" suffixOverrides=",">
-            currency = currency + #{addCurrency,jdbcType=DECIMAL}
+            <if test="addCurrency != null">
+                currency = currency + #{addCurrency,jdbcType=DECIMAL}
+            </if>
+            <if test="deductCurrency != null">
+                currency = currency - #{deductCurrency,jdbcType=DECIMAL}
+            </if>
         </trim>
         <where>
             user_id = #{userId,jdbcType=VARCHAR}
