@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: currencycrond
+  datasource:
+    url: jdbc:mysql://148.135.93.196:3306/currency
+    username: currency
+    password: NpR3PmeSAcfxFx2T
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8003
+
+eureka:
+  instance:
+    hostname: currencycrond
+    appname: currencycrond
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.minyan.po
+

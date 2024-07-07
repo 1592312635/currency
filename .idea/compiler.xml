@@ -7,9 +7,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="dao" />
         <module name="common" />
         <module name="currency-capi" />
-        <module name="dao" />
+        <module name="currency-crond" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -23,6 +24,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common" options="-parameters" />
       <module name="currency-capi" options="-parameters" />
+      <module name="currency-crond" options="-parameters" />
       <module name="dao" options="-parameters" />
     </option>
   </component>

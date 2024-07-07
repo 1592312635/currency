@@ -6,6 +6,7 @@
     <file url="file://$PROJECT_DIR$/currency-capi/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/currency-common/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/currency-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/currency-crond/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/currency-dao/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/currency-dao/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/currency-mapi/src/main/java" charset="UTF-8" />

@@ -23,12 +23,19 @@
         <module>currency-capi</module>
         <module>common</module>
         <module>dao</module>
+        <module>currency-crond</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <spring-cloud.version>2020.0.1</spring-cloud.version>
+        <spring-clooud-starter-netflix-eureka-client.version>2.2.1.RELEASE
+        </spring-clooud-starter-netflix-eureka-client.version>
+        <spring-boot.version>2.4.3</spring-boot.version>
+        <spring-web.version>5.3.4</spring-web.version>
+        <fastjson2.version>2.0.32</fastjson2.version>
     </properties>
 
     <dependencies>
