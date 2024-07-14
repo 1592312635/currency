@@ -1,5 +1,6 @@
 package com.minyan.vo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ import lombok.Data;
  */
 @Data
 public class CurrencyAccountVO {
+//  private static final long serialVersionUID = 1L;
   private BigDecimal currency;
   private Integer currencyType;
 

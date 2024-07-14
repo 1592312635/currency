@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
  * @date 2024/7/2 11:10
  */
 @Service
-@Order(40)
+@Order(50)
 public class CurrencySendSerialHandler extends CurrencySendAbstractHandler {
   private static final Logger logger = LoggerFactory.getLogger(CurrencySendSerialHandler.class);
 

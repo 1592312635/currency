@@ -13,12 +13,6 @@
         <module name="currency-crond" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="currency-common" target="1.8" />
-      <module name="currency-dao" target="1.8" />
-      <module name="currency-mapi" target="1.8" />
-      <module name="currency-service" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

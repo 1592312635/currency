@@ -16,6 +16,6 @@ public enum EffectiveTypeEnum {
   RELATIVE(2, "相对有效期"),
   NATURE(3, "自然有效期");
 
-  private Integer value;
-  private String desc;
+  private final Integer value;
+  private final String desc;
 }
