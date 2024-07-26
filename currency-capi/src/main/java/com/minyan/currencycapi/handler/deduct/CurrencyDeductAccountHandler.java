@@ -24,7 +24,7 @@ import org.springframework.util.CollectionUtils;
  * @date 2024/6/25 13:45
  */
 @Service
-@Order(30)
+@Order(40)
 public class CurrencyDeductAccountHandler extends CurrencyDeductAbstractHandler {
   private static final Logger logger = LoggerFactory.getLogger(CurrencyDeductAccountHandler.class);
 

@@ -16,6 +16,7 @@ public class CurrencyOrderPO {
   private String orderNo;
   private BigDecimal amount;
   private BigDecimal failAmount;
+  private BigDecimal expireAmount;
   private Integer status;
   private Integer currencyType;
   private Integer handleType;
