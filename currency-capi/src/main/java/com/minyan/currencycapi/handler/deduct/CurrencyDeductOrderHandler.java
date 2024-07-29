@@ -1,5 +1,6 @@
 package com.minyan.currencycapi.handler.deduct;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.google.common.collect.Lists;
 import com.minyan.Enum.HandleTypeEnum;
 import com.minyan.Enum.OrderStatusEnum;
@@ -37,6 +38,9 @@ public class CurrencyDeductOrderHandler extends CurrencyDeductAbstractHandler {
 
     // 变更订单抵扣金额和订单状态
     updateOrder(orders, param.getDeductCurrency());
+
+    // 生成扣减订单
+    createCurrencyOrder(param);
     return true;
   }
 
@@ -87,7 +91,11 @@ public class CurrencyDeductOrderHandler extends CurrencyDeductAbstractHandler {
    */
   void updateOrder(List<CurrencyOrderPO> orderPOS, BigDecimal deductAmount) {
     BigDecimal needDeductAmount = deductAmount;
+    if (CollectionUtils.isEmpty(orderPOS)) {
+      return;
+    }
     for (CurrencyOrderPO orderPO : orderPOS) {
+      // 当前订单实际可以抵消的金额
       BigDecimal orderNeedDeductAmount =
           orderPO.getAmount().subtract(orderPO.getFailAmount().subtract(orderPO.getExpireAmount()));
       CurrencyOrderPO updateCurrencyOrderPO = new CurrencyOrderPO();
@@ -95,13 +103,53 @@ public class CurrencyDeductOrderHandler extends CurrencyDeductAbstractHandler {
       if (needDeductAmount.compareTo(orderNeedDeductAmount) >= 0) {
         // 订单全部抵扣
         updateCurrencyOrderPO.setStatus(OrderStatusEnum.DEDUCT.getValue());
-        updateCurrencyOrderPO.setFailAmount(orderNeedDeductAmount);
+        updateCurrencyOrderPO.setFailAmount(orderNeedDeductAmount.add(orderPO.getFailAmount()));
+        needDeductAmount = needDeductAmount.subtract(orderNeedDeductAmount);
+        currencyOrderMapper.updateStatusAndFailAmountById(updateCurrencyOrderPO);
       } else {
         // 订单部分抵扣
-        updateCurrencyOrderPO.setFailAmount(needDeductAmount);
+        updateCurrencyOrderPO.setFailAmount(needDeductAmount.add(orderPO.getFailAmount()));
+        needDeductAmount = BigDecimal.ZERO;
+        currencyOrderMapper.updateStatusAndFailAmountById(updateCurrencyOrderPO);
         // 已经全部抵扣完，直接终止
         break;
       }
     }
+    logger.info(
+        "[CurrencyDeductOrderHandler][updateOrder]扣减抵消发放订单结束，本次需要抵消金额：{}，实际抵消金额：{}",
+        deductAmount,
+        deductAmount.subtract(needDeductAmount));
+  }
+
+  /**
+   * 生成扣减订单
+   *
+   * @param param
+   */
+  void createCurrencyOrder(AccountDeductParam param) {
+    CurrencyOrderPO currencyOrderPO = buildDeductCurrencyOrder(param);
+    int deductResult = currencyOrderMapper.insertSelective(currencyOrderPO);
+    logger.info(
+        "[CurrencyDeductOrderHandler][createCurrencyOrder]生成扣减订单结束，订单实体：{}，生成结果：{}",
+        JSONObject.toJSONString(currencyOrderPO),
+        deductResult > 0);
+  }
+
+  /**
+   * 构建扣减订单实体
+   *
+   * @param param
+   * @return
+   */
+  CurrencyOrderPO buildDeductCurrencyOrder(AccountDeductParam param) {
+    CurrencyOrderPO currencyOrderPO = new CurrencyOrderPO();
+    currencyOrderPO.setAmount(param.getDeductCurrency());
+    currencyOrderPO.setBehaviorCode(param.getBehaviorCode());
+    currencyOrderPO.setCurrencyType(param.getCurrencyType());
+    currencyOrderPO.setHandleType(HandleTypeEnum.REDUCE.getValue());
+    currencyOrderPO.setOrderNo(param.getBusinessId());
+    currencyOrderPO.setStatus(OrderStatusEnum.DEFAULT.getValue());
+    currencyOrderPO.setUserId(param.getUserId());
+    return currencyOrderPO;
   }
 }

@@ -107,7 +107,7 @@
                 #{status,jdbcType=INTEGER}
             </foreach>
         </if>
-        order by create_time desc
+        order by create_time
         limit #{pageNum,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
     </select>
 
