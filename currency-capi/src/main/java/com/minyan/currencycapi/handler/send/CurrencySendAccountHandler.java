@@ -1,22 +1,19 @@
 package com.minyan.currencycapi.handler.send;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.google.common.collect.Maps;
 import com.minyan.Enum.CodeEnum;
 import com.minyan.dao.CurrencyAccountMapper;
 import com.minyan.exception.CustomException;
 import com.minyan.param.AccountSendParam;
 import com.minyan.po.CurrencyAccountPO;
 import com.minyan.vo.context.send.SendContext;
-import java.util.List;
-import java.util.Map;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 /**
  * @decription 代币发放账户处理handler
@@ -35,23 +32,23 @@ public class CurrencySendAccountHandler extends CurrencySendAbstractHandler {
   public boolean handle(SendContext sendContext) {
     AccountSendParam param = sendContext.getParam();
     // 查询是否存在代币账户
-    Map<String, Object> queryMap = buildQueryCurrencyAccountPO(param);
-    List<CurrencyAccountPO> currencyAccountPOS =
-        currencyAccountMapper.selectListSelective(queryMap);
+    CurrencyAccountPO currencyAccountPO =
+        currencyAccountMapper.selectByUserIdAndCurrencyType(
+            param.getUserId(), param.getCurrencyType());
 
     int count = 0;
-    if (CollectionUtils.isEmpty(currencyAccountPOS)) {
-      CurrencyAccountPO currencyAccountPO = buildInsertCurrencyAccountPO(param);
+    if (ObjectUtils.isEmpty(currencyAccountPO)) {
+      currencyAccountPO = buildInsertCurrencyAccountPO(param);
       count = currencyAccountMapper.insertSelective(currencyAccountPO);
     } else {
       count =
           currencyAccountMapper.updateByUserIdAndCurrencyType(
-              param.getUserId(), param.getCurrencyType(), param.getAddCurrency(),null);
+              param.getUserId(), param.getCurrencyType(), param.getAddCurrency(), null);
     }
     logger.info(
         "[CurrencySendAccountHandler][handle]代币发放结束，请求参数：{}，账户信息：{}，返回结果：{}",
         JSONObject.toJSONString(param),
-        JSONObject.toJSONString(currencyAccountPOS),
+        JSONObject.toJSONString(currencyAccountPO),
         count);
     if (count <= 0) {
       throw new CustomException(CodeEnum.ACCOUNT_UPDATE_FAIL);
@@ -71,18 +68,5 @@ public class CurrencySendAccountHandler extends CurrencySendAbstractHandler {
     currencyAccountPO.setCurrency(param.getAddCurrency());
     currencyAccountPO.setCurrencyType(param.getCurrencyType());
     return currencyAccountPO;
-  }
-
-  /**
-   * 查询代币账户信息请求参数
-   *
-   * @param param
-   * @return
-   */
-  Map<String, Object> buildQueryCurrencyAccountPO(AccountSendParam param) {
-    Map<String, Object> map = Maps.newHashMap();
-    map.put("userId", param.getUserId());
-    map.put("currencyType", param.getCurrencyType());
-    return map;
   }
 }

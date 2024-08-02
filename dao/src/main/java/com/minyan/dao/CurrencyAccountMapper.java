@@ -16,6 +16,9 @@ import org.apache.ibatis.annotations.Param;
 public interface CurrencyAccountMapper {
   List<CurrencyAccountPO> selectListSelective(Map<String, Object> map);
 
+  CurrencyAccountPO selectByUserIdAndCurrencyType(
+      @Param("userId") String userId, @Param("currencyType") Integer currencyType);
+
   int insertSelective(CurrencyAccountPO record);
 
   int updateByUserIdAndCurrencyType(

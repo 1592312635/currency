@@ -2,7 +2,6 @@ package com.minyan.currencycapi.service.impl;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.minyan.currencycapi.handler.deduct.CurrencyDeductHandler;
 import com.minyan.currencycapi.handler.send.CurrencySendHandler;
 import com.minyan.currencycapi.service.AccountService;
@@ -16,13 +15,12 @@ import com.minyan.vo.context.deduct.DeductContext;
 import com.minyan.vo.context.send.SendContext;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
 /**
  * @decription
@@ -37,18 +35,19 @@ public class AccountServiceImpl implements AccountService {
   @Autowired List<CurrencyDeductHandler> currencyDeductHandlers;
   @Autowired private CurrencyAccountMapper currencyAccountMapper;
 
-//  @Cacheable(value = "getAccount", key = "#param.userId + ':' + #param.currencyType")
+  //  @Cacheable(value = "getAccount", key = "#param.userId + ':' + #param.currencyType")
   @Override
   public CurrencyAccountVO getAccount(AccountQueryParam param) {
-    Map<String, Object> map = Maps.newHashMap();
-    List<CurrencyAccountPO> currencyAccountPOS = currencyAccountMapper.selectListSelective(map);
+    CurrencyAccountPO currencyAccountPO =
+        currencyAccountMapper.selectByUserIdAndCurrencyType(
+            param.getUserId(), param.getCurrencyType());
     logger.info(
         "[AccountServiceImpl][getAccount]查询代币余额信息请求结束，请求参数：{}，返回结果：{}",
         JSONObject.toJSONString(param),
-        JSONObject.toJSONString(currencyAccountPOS));
-    if (!CollectionUtils.isEmpty(currencyAccountPOS)) {
+        JSONObject.toJSONString(currencyAccountPO));
+    if (!ObjectUtils.isEmpty(currencyAccountPO)) {
       return new CurrencyAccountVO(
-          currencyAccountPOS.get(0).getCurrency(), currencyAccountPOS.get(0).getCurrencyType());
+          currencyAccountPO.getCurrency(), currencyAccountPO.getCurrencyType());
     }
     return new CurrencyAccountVO(BigDecimal.ZERO, param.getCurrencyType());
   }

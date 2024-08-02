@@ -18,22 +18,15 @@
         id, currency, currency_type, user_id, create_time, update_time, del_tag
     </sql>
 
-    <select id="selectListSelective" parameterType="map" resultMap="BaseResultMap">
+    <select id="selectByUserIdAndCurrencyType" resultMap="BaseResultMap">
         select
         <include refid="Base_Fragment_SQL"/>
         from currency_account
-        <where>
-            del_tag = 0
-            <if test="id != null">
-                and id = #{id,jdbcType=BIGINT}
-            </if>
-            <if test="userId != null">
-                and user_id = #{userId,jdbcType=VARCHAR}
-            </if>
-            <if test="currencyType != null">
-                and currency_type = #{currencyType,jdbcType=INTEGER}
-            </if>
-        </where>
+        where
+        del_tag = 0
+        and user_id = #{userId,jdbcType=VARCHAR}
+        and currency_type = #{currencyType,jdbcType=INTEGER}
+        limit 1
     </select>
 
     <insert id="insertSelective" parameterType="com.minyan.po.CurrencyAccountPO">
