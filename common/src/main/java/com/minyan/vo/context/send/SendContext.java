@@ -1,4 +1,4 @@
-package com.minyan.vo.send;
+package com.minyan.vo.context.send;
 
 import com.minyan.param.AccountSendParam;
 import com.minyan.po.CurrencyRulePO;

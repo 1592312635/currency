@@ -1,4 +1,4 @@
-package com.minyan.vo.deduct;
+package com.minyan.vo.context.deduct;
 
 import com.minyan.param.AccountDeductParam;
 import com.minyan.po.CurrencyRulePO;

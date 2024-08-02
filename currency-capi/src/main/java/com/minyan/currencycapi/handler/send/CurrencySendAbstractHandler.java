@@ -1,6 +1,6 @@
 package com.minyan.currencycapi.handler.send;
 
-import com.minyan.vo.send.SendContext;
+import com.minyan.vo.context.send.SendContext;
 import org.springframework.stereotype.Service;
 
 /**

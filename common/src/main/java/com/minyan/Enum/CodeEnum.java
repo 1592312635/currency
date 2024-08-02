@@ -20,6 +20,7 @@ public enum CodeEnum {
   ACCOUNT_NOT_EXIST("100003", "账户不存在"),
   ACCOUNT_NOT_ENOUGH("100004", "账户余额不足"),
   SERIAL_INSERT_FAIL("100005", "流水生成失败"),
+  EXPIRE_EXCEPTION("100006", "过期订单时发生异常"),
   ;
   private final String code;
   private final String message;

@@ -7,7 +7,7 @@ import com.minyan.Enum.OrderStatusEnum;
 import com.minyan.dao.CurrencyOrderMapper;
 import com.minyan.param.AccountDeductParam;
 import com.minyan.po.CurrencyOrderPO;
-import com.minyan.vo.deduct.DeductContext;
+import com.minyan.vo.context.deduct.DeductContext;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -105,12 +105,12 @@ public class CurrencyDeductOrderHandler extends CurrencyDeductAbstractHandler {
         updateCurrencyOrderPO.setStatus(OrderStatusEnum.DEDUCT.getValue());
         updateCurrencyOrderPO.setFailAmount(orderNeedDeductAmount.add(orderPO.getFailAmount()));
         needDeductAmount = needDeductAmount.subtract(orderNeedDeductAmount);
-        currencyOrderMapper.updateStatusAndFailAmountById(updateCurrencyOrderPO);
+        currencyOrderMapper.updateStatusAndAmountById(updateCurrencyOrderPO);
       } else {
         // 订单部分抵扣
         updateCurrencyOrderPO.setFailAmount(needDeductAmount.add(orderPO.getFailAmount()));
         needDeductAmount = BigDecimal.ZERO;
-        currencyOrderMapper.updateStatusAndFailAmountById(updateCurrencyOrderPO);
+        currencyOrderMapper.updateStatusAndAmountById(updateCurrencyOrderPO);
         // 已经全部抵扣完，直接终止
         break;
       }

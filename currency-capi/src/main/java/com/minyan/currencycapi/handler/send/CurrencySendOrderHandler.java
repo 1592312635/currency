@@ -5,7 +5,7 @@ import com.minyan.Enum.HandleTypeEnum;
 import com.minyan.dao.CurrencyOrderMapper;
 import com.minyan.param.AccountSendParam;
 import com.minyan.po.CurrencyOrderPO;
-import com.minyan.vo.send.SendContext;
+import com.minyan.vo.context.send.SendContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

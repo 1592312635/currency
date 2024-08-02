@@ -21,6 +21,8 @@ public class CurrencyOrderPO {
   private Integer currencyType;
   private Integer handleType;
   private String behaviorCode;
+  private Date expireTime;
+  private Date scheduleTime;
   private Date createTime;
   private Date updateTime;
   private Integer delTag;

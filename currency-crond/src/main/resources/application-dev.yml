@@ -22,3 +22,14 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.minyan.po
 
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

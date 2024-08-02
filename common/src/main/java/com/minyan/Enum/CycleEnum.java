@@ -11,11 +11,23 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum CycleEnum {
-    DAY(1, "日"),
-    WEEK(2, "周"),
-    MONTH(3, "月"),
-    YEAR(4, "年");
+  SECONDS(1, "秒"),
+  MINUTES(2, "分钟"),
+  HOURS(3, "小时"),
+  DAY(4, "日"),
+  WEEK(5, "周"),
+  MONTH(6, "月"),
+  YEAR(7, "年");
 
-    private final Integer code;
-    private final String desc;
+  private final Integer value;
+  private final String desc;
+
+  public static CycleEnum getCycleEnumByValue(Integer value) {
+    for (CycleEnum cycleEnum : values()) {
+      if (cycleEnum.getValue().equals(value)) {
+        return cycleEnum;
+      }
+    }
+    return null;
+  }
 }

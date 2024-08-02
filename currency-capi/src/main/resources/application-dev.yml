@@ -25,6 +25,8 @@ eureka:
     hostname: currencycapi
     appname: currencycapi
   client:
+    register-with-eureka: true
+    fetch-registry: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
 
