@@ -54,4 +54,14 @@
             </if>
         </trim>
     </insert>
+
+    <update id="updateStartTimeById" parameterType="com.minyan.po.CurrencyRulePO">
+        update currency_rule
+        <set>
+            start_time = #{startTime,jdbcType=TIMESTAMP},
+        </set>
+        <where>
+            id = #{id,jdbcType=BIGINT}
+        </where>
+    </update>
 </mapper>

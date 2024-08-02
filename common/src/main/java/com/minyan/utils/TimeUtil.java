@@ -22,7 +22,7 @@ public class TimeUtil {
   private static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
   private static final SimpleDateFormat SIMPLE_DATE_FORMAT =
       new SimpleDateFormat(DEFAULT_DATE_FORMAT);
-  private static final SimpleDateFormat SIMPLE_DATE_TIME_FORMAT =
+  public static final SimpleDateFormat SIMPLE_DATE_FORMAT_SECONDS =
       new SimpleDateFormat(DEFAULT_DATE_TIME_FORMAT);
   private static final DateTimeFormatter DATE_FORMATTER =
       DateTimeFormatter.ofPattern(DEFAULT_DATE_FORMAT);
@@ -44,9 +44,14 @@ public class TimeUtil {
     return LocalDateTime.parse(dateTimeString, DATE_TIME_FORMATTER);
   }
 
-  // Date 转 String
+  // Date 转 String (日)
   public static String dateToString(Date date) {
     return SIMPLE_DATE_FORMAT.format(date);
+  }
+
+  // Date 转 String (秒)
+  public static String dateToStringSeconds(Date date) {
+    return SIMPLE_DATE_FORMAT_SECONDS.format(date);
   }
 
   // LocalDate 转 String
@@ -121,5 +126,30 @@ public class TimeUtil {
     }
 
     return Date.from(instant);
+  }
+
+  /**
+   * 通过时长计算秒数
+   *
+   * @param period
+   * @param cycle
+   * @return
+   */
+  Long getSecondByPeriodAndCycle(Integer period, CycleEnum cycle) {
+    switch (cycle) {
+      case SECONDS:
+        return period.longValue();
+      case MINUTES:
+        return period.longValue() * 60;
+      case HOURS:
+        return period.longValue() * 60 * 60;
+      case DAY:
+        return period.longValue() * 60 * 60 * 24;
+      case WEEK:
+        return period.longValue() * 60 * 60 * 24 * 7;
+      case MONTH:
+        return period.longValue() * 60 * 60 * 24 * 30;
+    }
+    return 0L;
   }
 }

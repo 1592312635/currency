@@ -18,4 +18,13 @@ public enum EffectiveTypeEnum {
 
   private final Integer value;
   private final String desc;
+
+  public static EffectiveTypeEnum getEffectiveTypeEnumByValue(Integer value) {
+    for (EffectiveTypeEnum effectiveTypeEnum : EffectiveTypeEnum.values()) {
+      if (effectiveTypeEnum.getValue().equals(value)) {
+        return effectiveTypeEnum;
+      }
+    }
+    return null;
+  }
 }
