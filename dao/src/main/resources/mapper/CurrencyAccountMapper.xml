@@ -38,6 +38,9 @@
             <if test="currencyType != null">
                 currency_type,
             </if>
+            <if test="currency != null">
+                currency,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="userId != null">
@@ -45,6 +48,9 @@
             </if>
             <if test="currencyType != null">
                 #{currencyType,jdbcType=INTEGER},
+            </if>
+            <if test="currency != null">
+                #{currency,jdbcType=DECIMAL},
             </if>
         </trim>
     </insert>

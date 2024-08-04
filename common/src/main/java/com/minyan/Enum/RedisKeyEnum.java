@@ -2,6 +2,7 @@ package com.minyan.Enum;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.apache.http.annotation.Contract;
 
 /**
  * @decription 缓存key

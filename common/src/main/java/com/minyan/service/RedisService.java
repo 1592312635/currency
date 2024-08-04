@@ -41,7 +41,6 @@ public class RedisService {
   }
 
   public void releaseLock(String key) {
-    String currentValue = (String) redisTemplate.opsForValue().get(key);
     redisTemplate.delete(key);
   }
 }

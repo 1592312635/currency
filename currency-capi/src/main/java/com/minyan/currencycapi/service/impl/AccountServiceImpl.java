@@ -2,6 +2,7 @@ package com.minyan.currencycapi.service.impl;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.google.common.collect.Lists;
+import com.minyan.Enum.RedisKeyEnum;
 import com.minyan.currencycapi.handler.deduct.CurrencyDeductHandler;
 import com.minyan.currencycapi.handler.send.CurrencySendHandler;
 import com.minyan.currencycapi.service.AccountService;
@@ -18,6 +19,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
@@ -35,7 +37,7 @@ public class AccountServiceImpl implements AccountService {
   @Autowired List<CurrencyDeductHandler> currencyDeductHandlers;
   @Autowired private CurrencyAccountMapper currencyAccountMapper;
 
-  //  @Cacheable(value = "getAccount", key = "#param.userId + ':' + #param.currencyType")
+//  @Cacheable(value = new String[]{RedisKeyEnum.ACCOUNT_INFO.getKey()}, key = "#param.userId + ':' + #param.currencyType")
   @Override
   public CurrencyAccountVO getAccount(AccountQueryParam param) {
     CurrencyAccountPO currencyAccountPO =

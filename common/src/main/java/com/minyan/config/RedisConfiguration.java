@@ -1,11 +1,13 @@
-package com.minyan.currencycrond.config;
+package com.minyan.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
@@ -28,19 +30,27 @@ public class RedisConfiguration {
   @Bean
   public RedisTemplate<String, Object> redisTemplate(
       RedisConnectionFactory redisConnectionFactory) {
-    log.info("[RedisConfiguration][redisTemplate]开始创建redis模板对象..."); // 优化日志级别为debug
+    log.info("[RedisConfiguration][redisTemplate]开始创建redis模板对象...");
     RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
     try {
       // 设置redis的连接工厂对象
       redisTemplate.setConnectionFactory(redisConnectionFactory);
+
+      // 使用 Jackson 2 JSON 序列化器
+      Jackson2JsonRedisSerializer<Object> serializer =
+          new Jackson2JsonRedisSerializer<>(Object.class);
+      ObjectMapper objectMapper = new ObjectMapper();
+      objectMapper.findAndRegisterModules(); // 注册 Jackson 模块
+      serializer.setObjectMapper(objectMapper);
+
       // 设置redis key的序列化器
       redisTemplate.setKeySerializer(new StringRedisSerializer());
       // 设置redis value的序列化器
-      redisTemplate.setValueSerializer(new StringRedisSerializer());
+      redisTemplate.setValueSerializer(serializer); // 修改这里
       redisTemplate.afterPropertiesSet();
     } catch (Exception e) {
-      log.error("[RedisConfiguration][redisTemplate]RedisTemplate配置失败", e); // 添加异常处理
-      throw e; // 重新抛出异常，确保调用者可以处理
+      log.error("[RedisConfiguration][redisTemplate]RedisTemplate配置失败", e);
+      throw e;
     }
     return redisTemplate;
   }
