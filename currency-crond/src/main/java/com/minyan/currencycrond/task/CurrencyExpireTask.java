@@ -15,6 +15,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +30,7 @@ public class CurrencyExpireTask {
   private static final Logger logger = LoggerFactory.getLogger(CurrencyExpireTask.class);
   @Autowired private CurrencyExpireTaskService currencyExpireTaskService;
   @Autowired private CurrencyOrderMapper currencyOrderMapper;
-  @Autowired private RedisService redisService;
+  @Autowired @Lazy private RedisService redisService;
 
   @Scheduled(cron = "0/30 * * * * ?")
   public void expireCurrencyCrond() {

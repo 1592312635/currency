@@ -6,6 +6,16 @@ spring:
     username: currency
     password: NpR3PmeSAcfxFx2T
     driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 148.135.93.196
+    port: 6379
+    password: s9636h8n2455
+    lettuce:
+      pool:
+        max-active: 8  #最大连接
+        max-idle: 8   #最大空闲连接
+        min-idle: 0   #最小空闲连接
+        max-wait: 100ms #连接等待时间
 
 server:
   port: 8003

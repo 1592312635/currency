@@ -1,6 +1,7 @@
 package com.minyan.currencycrond;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -15,6 +16,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @EnableAsync
 @EnableCaching
 @EnableScheduling
+@EnableAutoConfiguration
 @MapperScan(basePackages = "com.minyan.dao")
 public class CurrencyCrondApplication {
 

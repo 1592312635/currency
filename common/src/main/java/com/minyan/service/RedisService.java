@@ -2,6 +2,7 @@ package com.minyan.service;
 
 import java.time.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class RedisService {
-  @Autowired private RedisTemplate<String, Object> redisTemplate;
+  @Autowired
+  private RedisTemplate<String, Object> redisTemplate;
 
   public void set(String key, Object value) {
     redisTemplate.opsForValue().set(key, value);
@@ -35,7 +37,7 @@ public class RedisService {
   }
 
   public boolean lock(String key) {
-    return redisTemplate.opsForValue().setIfAbsent(key, 1);
+    return redisTemplate.opsForValue().setIfAbsent(key, "lock");
   }
 
   public void releaseLock(String key) {
