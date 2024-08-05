@@ -32,13 +32,13 @@ public class CurrencyExpireTask {
   @Autowired private CurrencyOrderMapper currencyOrderMapper;
   @Autowired @Lazy private RedisService redisService;
 
-  @Scheduled(cron = "0/30 * * * * ?")
+  @Scheduled(cron = "0/10 * * * * ?")
   public void expireCurrencyCrond() {
     List<CurrencyOrderPO> expireOrders =
         currencyOrderMapper.queryExpireOrders(
             HandleTypeEnum.ADD.getValue(),
             Arrays.asList(OrderStatusEnum.DEFAULT.getValue(), OrderStatusEnum.SUCCESS.getValue()),
-            100);
+            1000);
     logger.info(
         "[CurrencyExpireTask][expireCurrencyCrond]查询代币过期订单条数：{}，开始处理代币过期~",
         CollectionUtils.isEmpty(expireOrders) ? 0 : expireOrders.size());

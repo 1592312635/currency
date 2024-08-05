@@ -66,6 +66,7 @@ public class CurrencySendRuleHandler extends CurrencySendAbstractHandler {
                     CycleEnum.getCycleEnumByValue(currencyRulePO.getEffectiveCycle())),
                 currencyRulePO.getEffectiveSpan());
       }
+      currencyRulePO.setStartTime(targetStartTime);
       currencyRuleMapper.updateStartTimeById(currencyRulePO.getId(), targetStartTime);
       logger.info(
           "[CurrencySendRuleHandler][handle]代币发放时自然周期货币已超过有效期，重置自然周期开始时间，当前规则：{}，重置时间：{}",
