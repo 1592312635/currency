@@ -16,6 +16,7 @@ import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class CurrencyExpireTaskServiceImpl implements CurrencyExpireTaskService 
   @Autowired private CurrencyOrderMapper currencyOrderMapper;
   @Autowired private List<CurrencyExpireAbstractHandler> currencyExpireHandlers;
 
+  @Async
   @SneakyThrows
   @Transactional(rollbackFor = Exception.class)
   @Override
@@ -45,7 +47,7 @@ public class CurrencyExpireTaskServiceImpl implements CurrencyExpireTaskService 
       CurrencyOrderPO updateCurrencyOrderPO = new CurrencyOrderPO();
       updateCurrencyOrderPO.setId(currencyOrderPO.getId());
       updateCurrencyOrderPO.setStatus(OrderStatusEnum.EXPIRE.getValue());
-      currencyOrderMapper.updateStatusAndAmountById(currencyOrderPO);
+      currencyOrderMapper.updateStatusAndAmountById(updateCurrencyOrderPO);
       logger.info(
           "[CurrencyExpireTaskServiceImpl][expireCurrencyOrder]当前订单无待过期金额，直接置为过期，订单号：{}",
           currencyOrderPO.getOrderNo());

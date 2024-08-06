@@ -43,3 +43,13 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 60000
+
+thread:
+  pool:
+    executor:
+      config:
+        corePoolSize: 20
+        maxPoolSize: 50
+        keepAliveTime: 5000
+        blockQueueSize: 5000
+        policy: CallerRunsPolicy

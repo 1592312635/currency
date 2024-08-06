@@ -1,10 +1,9 @@
 package com.minyan.param;
 
 import java.math.BigDecimal;
-import lombok.Data;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.Data;
 
 /**
  * @decription 代币发放请求参数
