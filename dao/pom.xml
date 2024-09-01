@@ -50,6 +50,11 @@
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.4.2</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.shyiko</groupId>
+            <artifactId>mysql-binlog-connector-java</artifactId>
+            <version>0.21.0</version>
+        </dependency>
     </dependencies>
     <build>
 <!--        <plugins>-->

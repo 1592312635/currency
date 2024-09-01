@@ -34,3 +34,10 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.minyan.po
 
+binlog:
+  client:
+    host: 148.135.93.196
+    port: 3306
+    username: currency
+    password: NpR3PmeSAcfxFx2T
+    serverId: 1
