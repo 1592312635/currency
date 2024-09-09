@@ -1,7 +1,10 @@
 package com.minyan.vo.context.confirm;
 
 import com.minyan.param.OrderConfirmParam;
+import com.minyan.po.CurrencyOrderPO;
 import lombok.Data;
+
+import java.math.BigDecimal;
 
 /**
  * @decription
@@ -11,4 +14,8 @@ import lombok.Data;
 @Data
 public class ConfirmContext {
   private OrderConfirmParam param;
+  // 订单信息
+  private CurrencyOrderPO currencyOrderPO;
+  // 失败回退金额
+  private BigDecimal failAmount;
 }

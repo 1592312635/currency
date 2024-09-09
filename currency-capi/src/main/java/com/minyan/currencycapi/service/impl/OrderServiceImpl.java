@@ -1,7 +1,5 @@
 package com.minyan.currencycapi.service.impl;
 
-import static com.minyan.Enum.OrderConfimTagEnum.CONFIRM_FAIL;
-
 import com.alibaba.fastjson2.JSONObject;
 import com.google.common.collect.Lists;
 import com.minyan.Enum.OrderConfimTagEnum;
@@ -78,6 +76,11 @@ public class OrderServiceImpl implements OrderService {
           }
         }
         break;
+      default:
+        logger.info(
+            "[OrderServiceImpl][confirmOrder]代币确认失败，标识传入有误，请求参数：{}",
+            JSONObject.toJSONString(param));
+        return false;
     }
     return true;
   }

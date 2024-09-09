@@ -1,7 +1,6 @@
 package com.minyan.param;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import lombok.Data;
 
 /**
@@ -17,9 +16,7 @@ public class OrderConfirmParam {
   @NotBlank(message = "订单号不能为空")
   private String orderNo;
 
-  @NotBlank(message = "代币类型不能为空")
   private Integer currencyType;
 
-  @Pattern(regexp = "[01]", message = "确认标识传入有误")
   private Integer confirmTag;
 }

@@ -31,4 +31,9 @@ public interface CurrencyOrderMapper {
       @Param("pageSize") Integer pageSize);
 
   int updateScheduleTimeById(@Param("id") Long id, @Param("scheduleTime") Date scheduleTime);
+
+  CurrencyOrderPO queryOrderExist(
+      @Param("userId") String userId,
+      @Param("orderNo") String orderNo,
+      @Param("currencyType") Integer currencyType);
 }

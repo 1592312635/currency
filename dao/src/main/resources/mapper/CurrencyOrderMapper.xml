@@ -164,4 +164,16 @@
             id = #{id,jdbcType=BIGINT}
         </where>
     </update>
+
+    <select id="queryOrderExist" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Fragment_SQL"/>
+        from currency_order
+        where del_tag = 0
+        and user_id = #{userId,jdbcType=VARCHAR}
+        and order_no = #{orderNo,jdbcType=VARCHAR}
+        and currency_type = #{currencyType,jdbcType=INTEGER}
+        limit 1
+    </select>
+
 </mapper>
