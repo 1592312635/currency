@@ -12,7 +12,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum OrderConfimTagEnum {
   CONFIRM_SUCCESS(1, "确认成功"),
-  CONFIRM_FAIL(0, "确认失败");
+  CONFIRM_FAIL(2, "确认失败");
 
   private final Integer value;
   private final String desc;

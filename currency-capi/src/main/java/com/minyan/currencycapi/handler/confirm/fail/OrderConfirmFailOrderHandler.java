@@ -30,7 +30,7 @@ public class OrderConfirmFailOrderHandler extends OrderConfirmFailAbstractHandle
     OrderConfirmParam param = confirmContext.getParam();
     CurrencyOrderPO currencyOrderPO =
         currencyOrderMapper.queryOrderExist(
-            param.getUserId(), param.getUserId(), param.getCurrencyType());
+            param.getUserId(), param.getOrderNo(), param.getCurrencyType());
     if (ObjectUtils.isEmpty(currencyOrderPO)) {
       logger.info(
           "[OrderConfirmFailOrderHandler][handle]代币订单确认失败，未查询到订单信息，请求参数：{}",

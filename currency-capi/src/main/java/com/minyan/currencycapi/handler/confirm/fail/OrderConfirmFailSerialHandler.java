@@ -6,6 +6,7 @@ import com.minyan.dao.CurrencySerialMapper;
 import com.minyan.param.OrderConfirmParam;
 import com.minyan.po.CurrencyOrderPO;
 import com.minyan.po.CurrencySerialPO;
+import com.minyan.utils.SnowFlakeUtil;
 import com.minyan.vo.context.confirm.ConfirmContext;
 import java.math.BigDecimal;
 import org.slf4j.Logger;
@@ -60,6 +61,7 @@ public class OrderConfirmFailSerialHandler extends OrderConfirmFailAbstractHandl
             ? HandleTypeEnum.REDUCE.getValue()
             : HandleTypeEnum.ADD.getValue());
     currencySerialPO.setAmount(failAmount);
+    currencySerialPO.setBusinessId(String.valueOf(SnowFlakeUtil.getDefaultSnowFlakeId()));
     return currencySerialPO;
   }
 }
