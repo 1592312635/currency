@@ -53,7 +53,7 @@ public class OrderConfirmFailSerialHandler extends OrderConfirmFailAbstractHandl
     CurrencySerialPO currencySerialPO = new CurrencySerialPO();
     currencySerialPO.setUserId(param.getUserId());
     currencySerialPO.setBehaviorCode(
-        String.format("%s%s", currencySerialPO.getBehaviorCode(), "_fail"));
+        String.format("%s%s", currencyOrderPO.getBehaviorCode(), "_fail"));
     currencySerialPO.setBehaviorDesc("失败回退");
     currencySerialPO.setCurrencyType(param.getCurrencyType());
     currencySerialPO.setHandleType(

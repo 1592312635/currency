@@ -1,6 +1,6 @@
 spring:
   application:
-    name: currencycapi
+    name: currencycrond
   datasource:
     url: jdbc:mysql://148.135.93.196:3306/currency
     username: currency
@@ -18,26 +18,38 @@ spring:
         max-wait: 100ms #连接等待时间
 
 server:
-  port: 8001
+  port: 8003
 
 eureka:
   instance:
-    hostname: currencycapi
-    appname: currencycapi
+    hostname: currencycrond
+    appname: currencycrond
   client:
-    register-with-eureka: false
-    fetch-registry: false
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://148.135.93.196:8761/eureka/
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.minyan.po
 
-binlog:
-  client:
-    host: 148.135.93.196
-    port: 3306
-    username: currency
-    password: NpR3PmeSAcfxFx2T
-    serverId: 1
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+thread:
+  pool:
+    executor:
+      config:
+        corePoolSize: 20
+        maxPoolSize: 50
+        keepAliveTime: 5000
+        blockQueueSize: 5000
+        policy: CallerRunsPolicy
