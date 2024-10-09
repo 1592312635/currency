@@ -5,7 +5,7 @@ import com.minyan.Enum.OrderStatusEnum;
 import com.minyan.dao.CurrencyOrderMapper;
 import com.minyan.param.OrderConfirmParam;
 import com.minyan.po.CurrencyOrderPO;
-import com.minyan.vo.context.confirm.ConfirmContext;
+import com.minyan.vo.context.ConfirmContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

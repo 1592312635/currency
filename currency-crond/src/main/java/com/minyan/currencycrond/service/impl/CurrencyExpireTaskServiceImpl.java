@@ -9,7 +9,7 @@ import com.minyan.currencycrond.service.CurrencyExpireTaskService;
 import com.minyan.dao.CurrencyOrderMapper;
 import com.minyan.exception.CustomException;
 import com.minyan.po.CurrencyOrderPO;
-import com.minyan.vo.context.expire.ExpireContext;
+import com.minyan.vo.context.ExpireContext;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.SneakyThrows;

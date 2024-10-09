@@ -1,6 +1,6 @@
 package com.minyan.currencycapi.handler.deduct;
 
-import com.minyan.vo.context.deduct.DeductContext;
+import com.minyan.vo.context.DeductContext;
 import org.springframework.stereotype.Service;
 
 /**

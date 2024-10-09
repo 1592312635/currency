@@ -3,7 +3,7 @@ package com.minyan.currencycrond.handler.expire;
 import com.minyan.Enum.OrderStatusEnum;
 import com.minyan.dao.CurrencyOrderMapper;
 import com.minyan.po.CurrencyOrderPO;
-import com.minyan.vo.context.expire.ExpireContext;
+import com.minyan.vo.context.ExpireContext;
 import java.math.BigDecimal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

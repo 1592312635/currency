@@ -7,7 +7,7 @@ import com.minyan.currencycapi.handler.confirm.fail.OrderConfirmFailHandler;
 import com.minyan.currencycapi.handler.confirm.success.OrderConfirmSuccessHandler;
 import com.minyan.currencycapi.service.OrderService;
 import com.minyan.param.OrderConfirmParam;
-import com.minyan.vo.context.confirm.ConfirmContext;
+import com.minyan.vo.context.ConfirmContext;
 import java.util.List;
 import java.util.Objects;
 import org.slf4j.Logger;

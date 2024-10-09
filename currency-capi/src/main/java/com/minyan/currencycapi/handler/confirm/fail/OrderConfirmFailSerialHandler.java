@@ -7,7 +7,7 @@ import com.minyan.param.OrderConfirmParam;
 import com.minyan.po.CurrencyOrderPO;
 import com.minyan.po.CurrencySerialPO;
 import com.minyan.utils.SnowFlakeUtil;
-import com.minyan.vo.context.confirm.ConfirmContext;
+import com.minyan.vo.context.ConfirmContext;
 import java.math.BigDecimal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

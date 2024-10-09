@@ -6,7 +6,7 @@ import com.minyan.dao.CurrencyAccountMapper;
 import com.minyan.exception.CustomException;
 import com.minyan.param.AccountSendParam;
 import com.minyan.po.CurrencyAccountPO;
-import com.minyan.vo.context.send.SendContext;
+import com.minyan.vo.context.SendContext;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

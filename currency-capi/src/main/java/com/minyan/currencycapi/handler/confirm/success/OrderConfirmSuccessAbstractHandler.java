@@ -1,6 +1,6 @@
 package com.minyan.currencycapi.handler.confirm.success;
 
-import com.minyan.vo.context.confirm.ConfirmContext;
+import com.minyan.vo.context.ConfirmContext;
 import org.springframework.stereotype.Service;
 
 /**

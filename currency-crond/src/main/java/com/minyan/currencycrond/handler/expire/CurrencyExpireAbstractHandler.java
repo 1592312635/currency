@@ -1,6 +1,6 @@
 package com.minyan.currencycrond.handler.expire;
 
-import com.minyan.vo.context.expire.ExpireContext;
+import com.minyan.vo.context.ExpireContext;
 import org.springframework.stereotype.Service;
 
 /**

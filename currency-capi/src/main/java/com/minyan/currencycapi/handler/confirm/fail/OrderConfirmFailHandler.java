@@ -1,6 +1,6 @@
 package com.minyan.currencycapi.handler.confirm.fail;
 
-import com.minyan.vo.context.confirm.ConfirmContext;
+import com.minyan.vo.context.ConfirmContext;
 
 /**
  * @decription 订单确认失败处理handler

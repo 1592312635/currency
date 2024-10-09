@@ -7,7 +7,7 @@ import com.minyan.dao.CurrencySerialMapper;
 import com.minyan.exception.CustomException;
 import com.minyan.param.AccountDeductParam;
 import com.minyan.po.CurrencySerialPO;
-import com.minyan.vo.context.deduct.DeductContext;
+import com.minyan.vo.context.DeductContext;
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

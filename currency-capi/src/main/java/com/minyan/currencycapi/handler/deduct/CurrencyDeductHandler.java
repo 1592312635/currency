@@ -1,6 +1,6 @@
 package com.minyan.currencycapi.handler.deduct;
 
-import com.minyan.vo.context.deduct.DeductContext;
+import com.minyan.vo.context.DeductContext;
 
 /**
  * @decription 代币扣减处理handler

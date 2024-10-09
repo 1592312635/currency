@@ -1,4 +1,4 @@
-package com.minyan.vo.context.confirm;
+package com.minyan.vo.context;
 
 import com.minyan.param.OrderConfirmParam;
 import com.minyan.po.CurrencyOrderPO;

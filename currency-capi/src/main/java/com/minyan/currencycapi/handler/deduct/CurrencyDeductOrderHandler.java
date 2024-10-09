@@ -7,7 +7,7 @@ import com.minyan.Enum.OrderStatusEnum;
 import com.minyan.dao.CurrencyOrderMapper;
 import com.minyan.param.AccountDeductParam;
 import com.minyan.po.CurrencyOrderPO;
-import com.minyan.vo.context.deduct.DeductContext;
+import com.minyan.vo.context.DeductContext;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.minyan.vo.context.expire;
+package com.minyan.vo.context;
 
 import com.minyan.po.CurrencyOrderPO;
 import lombok.Data;
