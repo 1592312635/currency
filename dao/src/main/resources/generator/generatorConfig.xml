@@ -38,9 +38,9 @@
         </commentGenerator>
         <!-- jdbc连接-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://148.135.93.196:3306/currency?serverTimeZone=GMT&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"
+                        connectionURL="jdbc:mysql://204.13.153.225:3306/currency?serverTimeZone=GMT&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"
                         userId="currency"
-                        password="NpR3PmeSAcfxFx2T">
+                        password="s9636h8n2455">
             <!--防止生成其他库同名表-->
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>

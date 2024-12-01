@@ -2,12 +2,12 @@ spring:
   application:
     name: currencycrond
   datasource:
-    url: jdbc:mysql://148.135.93.196:3306/currency
+    url: jdbc:mysql://204.13.153.225:3306/currency
     username: currency
-    password: NpR3PmeSAcfxFx2T
+    password: s9636h8n2455
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
-    host: 148.135.93.196
+    host: 204.13.153.225
     port: 6379
     password: s9636h8n2455
     lettuce:
