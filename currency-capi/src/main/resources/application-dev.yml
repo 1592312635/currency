@@ -3,7 +3,7 @@ spring:
     name: currencycapi
   datasource:
     url: jdbc:mysql://204.13.153.225:3306/currency
-    username: currency
+    username: root
     password: s9636h8n2455
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
@@ -38,6 +38,6 @@ binlog:
   client:
     host: 204.13.153.225
     port: 3306
-    username: currency
+    username: root
     password: s9636h8n2455
     serverId: 1
