@@ -14,6 +14,6 @@
     附：项目可启动服务为——currency-capi、currency-mapi、currency-crond，其中currency-mapi服务功能可通过sql执行实现，故俺暂时懒得写
 
 更多详细信息见飞书文档
-设计文档：https://c7nxmfumo3.feishu.cn/docx/TEFrdTtEhoX7uUxjkg7ccKnLnbg?from=from_copylink
+设计文档：https://c7nxmfumo3.feishu.cn/docx/JZG9dwxPiol7LexqdtBc9eOenXb?from=from_copylink
 接口文档：https://c7nxmfumo3.feishu.cn/docx/R7ZWdNjcho6pItxwFG2c13oKnId?from=from_copylink
 数据库建表语句：https://c7nxmfumo3.feishu.cn/docx/JHpudwNu9oP9ebxzzkucpO9jnid?from=from_copylink
